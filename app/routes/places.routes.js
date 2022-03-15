@@ -1,5 +1,5 @@
 const express = require("express")
-
+const reservation = require("../models/res.model")
 const app = express.Router()
 
 let places = [
@@ -207,7 +207,7 @@ app.put("/:id", (req, res) => {
 app.delete("/:id", (req, res) => {
     places = places.filter((place) => place.id != req.params.id);
     res.send({ msg:'Place removed' })
-})
+});
 
 module.exports = app
 

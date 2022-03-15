@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const resSchema = new mongoose.Schema({
+const Schema = new mongoose.Schema({
     place: {
         type: String,
         required: true,
@@ -41,4 +41,4 @@ const resSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('res.model', resSchema)
+module.exports = mongoose.model('res.model', Schema)

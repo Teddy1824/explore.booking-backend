@@ -1,36 +1,67 @@
-const { verifySignUp } = require("../middleware");
-const controller = require("../controllers/auth.controller");
-const { user } = require("../models");
-const bcrypt = require("bcryptjs/dist/bcrypt");
-module.exports = function(app) {
-  app.use(function(req, res, next) {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
+const bcrypt = require('bcryptjs')
+const router = require('express').Router();
+const User = require('../models/user.model')
+const jwt = require('jsonwebtoken')
+const { registerValidator, loginValidator } = require('../middleware/validation')
+
+let refreshTokens = []
+
+router.post('/token', (req, res) => {
+    const refreshToken = req.body.token
+    if (refreshToken == null) return res.sendStatus(401)
+    if (refreshTokens.includes(refreshToken)) return res.sendStatus(403)
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403)
+        const accessToken = generateAccessToken({ name:user.name })
+        res.json({ accessToken: accessToken })
+    })
+})
+
+
+router.post('/signup', async (req, res) => {
+
+  const {error} = registerValidator(req.body)
+  if(error) return res.status(400).send(error.details[0].msg);
+
+  const emailExist = await User.findOne({ email: req.body.email });
+  if (emailExist) return res.status(400).send('Email already exists')
+
+  const salt = await bcrypt.genSalt(10)
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+  const user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    phone_number: req.body.phone_number,
+    password: hashedPassword
   });
-  app.post(
-    "/api/auth/signup",
-    [
-      verifySignUp.checkDuplicateUsernameOrEmail,
-      verifySignUp.checkRolesExisted
-    ],
-    controller.signup
-  );
 
-  app.post('/login', async (req,res) => {
-      const {error} = loginValidator(req.body)
-      if (error) return res.status(400).send({ msg: 'Checking'});
+  try {
+    const savedUser = await user.save();
+    res.send({ user: user._id })
+  } catch(err) {
+    res.status(400).send(err);
+  }
+}); 
 
-      const user = await user.model.findOne({ email: req.body.email});
-      if (!user) return res.status(400).send({ msg: 'Incorrect email or password!'})
+router.post('/login', (req, res) => {
 
-      const validPassword = await bcrypt.compare(req.body.password, user.password);
-      if (!validPassword) return res.status(400).send('Correct password')
+  const name = req.body.name
+  const user = { name: name}
 
-      const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-      res.header('auth-token', token).send(token)
-  })
-  app.post("/api/auth/signin", controller.signin);
-};
+  const accessToken = generateAccessToken(user)
+  const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+  refreshTokens.push(refreshToken)
+  res.json({ accessToken: accessToken, refreshToken: refreshToken })
+})
+
+function generateAccessToken(user){
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s'})
+}
+
+router.delete('/logout', (req, res) => {
+  refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+  res.sendStatus(204)
+})
+
+module.exports = router
