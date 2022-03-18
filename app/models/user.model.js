@@ -1,40 +1,30 @@
 const mongoose = require("mongoose");
-const User = mongoose.model("User",
-  new mongoose.Schema({
-    username: {
-       type: String,
-       required: true,
-       min: 6,
-       max: 255
+const UserSchema = new mongoose.Schema ({
+    name: {
+      type: String,
+      required: [true, 'Please add a name']
+    },
+    phone_number: {
+      type: Number,
+      required: [true, 'Please add a phone number']
     },
     email: {
       type: String,
-      required: true,
-      min: 6,
-      max: 255
+      required: [true, 'Please add a email'],
+      unique: true,
+      match: [
+        'Please add a valid email.'
+      ]
     },
     password: {
-       type: String,
-       required: true,
-       min: 6,
-       max: 1024
+      type: String,
+      required: [true, 'Please add a password']
     },
-    phone_number: {
-       type: String,
-       required: true,
-       max: 10
-    },
-    reservation: {
-        type: Array,
-        required: false,
-        default: []
-    },
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Role"
-      }
-    ]
-  })
-);
+    date: {
+      type: Date,
+      default: Date.now
+    }
+}) 
+
+const User = mongoose.model('User', UserSchema);
 module.exports = User;

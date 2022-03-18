@@ -1,5 +1,12 @@
-module.exports = {
-    HOST: "localhost",
-    PORT: 27017,
-    DB: "bezkoder_db"
-  };
+const mongoose = require('mongoose');
+
+const connectDB = async () => {
+  const conn = await mongoose.connect(process.env.MONGO_URI, {
+    userNewUrlParser: true,
+    userCreateIndex: true,
+    userIndexModify: false,
+    userUnifiedTopology: true,
+  })
+  console.log('MongoDB Connected: ${conn.connection.host}')
+}
+module.exports = connectDB;
