@@ -20,6 +20,48 @@ router.get('/:id', getUser, (req,res) => {
       res.json(res.user)
 });
 
+//adding users
+router.post('/user/signup', getUser, async (req, res) => {
+    const {error} = validate(req.body);
+    if (error) {
+        return res.status(400).send(error.details[0].message);
+    }
+
+    let user = await User.findOne({ email: req.body.email });
+    if(user) {
+        return res.status(400).send('Sorry we already have that user :(')
+    } else {
+        user = new User({
+            name: req.body.name,
+            phone_number: req.body.phone_number,
+            email: req.body.email,
+            password: req.body.password
+        });
+        await user.save();
+        res.send(user)
+    }
+})
+
+router.patch("/user/login", async (req, res) => {
+    try {
+      User.findOne({ name: req.body.name }, (err, user) => {
+        if (error) return handleError(error);
+        if (!user) {
+          return res.status(404).send({ message: "User not found" });
+        }
+        let passwordIsValid = bcrypt.compareSync(
+          req.body.password,
+          User.password
+        );
+        if (!passwordIsValid) {
+          return res.status(401).send({ message: "invalid password" });
+        }
+      });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
 //update user
 router.put('/:id', async (req,res) => {
       //encrypt passwords
