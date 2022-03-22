@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -10,7 +11,6 @@ const jwt = require('jsonwebtoken')
 const auth = require('./app/routes/auth.routes');
 const User = require("./app/models/user.model");
 
-// require("dotenv").config();
 
 app.use(cors());
 
@@ -33,39 +33,8 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
     res.json({ message: "HI and welcome to Explore.Booking... this is the back-end side of things." });
   });
 
-  // app.post('/user/signup', async (req, res) => {
-  //   try {
-  //     const user = new User(req.body);
-  //     let result = await user.save();
-  //     result = result.toObject();
-  //     if (result) {
-  //       delete result.password;
-  //       res.send(req.body);
-  //       console.log(result);
-  //     } else {
-  //       console.log('User has already signed up.');
-  //     }
-  //   } catch (error) {
-  //     res.send('Oops, something is wrong :(')
-  //   }
-  // });
-
-// app.post("/user/signup", async (req, res) => {
-//   try {
-//     
-//     const tenant = {
-//       name: req.body.name, 
-//       email: req.body.email, 
-//       phone_number: req.body.phone_number, 
-//       password: hashedPassword};
-//     users.push(tenant);
-//     res.sendStatus(201).send();
-//   } catch {
-//     res.status(500).send()
-//   }
-// });
-
 app.post('/user/signup', async (req, res) => {
+  console.log("trying to register")
   const {error} = (req.body);
   if (error) {
       return res.status(400).send(error.details[0].message);
@@ -88,7 +57,7 @@ app.post('/user/signup', async (req, res) => {
 
 
 app.post("/user/login", async (req, res) => {
-  const tenant = users.find((tenant) => tenant.username == req.body.username);
+  const tenant = users.find((tenant) => tenant.name == req.body.name);
   const username = req.body.username;
   const password = req.body.password;
   const user = { name: username, password: password };
@@ -109,10 +78,6 @@ app.post("/user/login", async (req, res) => {
   }
 });
 
-app.post("/user/login", (req, res) => {
-  //Authenticate
-
-});
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];

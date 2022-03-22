@@ -1,18 +1,8 @@
-GET http://localhost:8081/api/test/all
-########
 
-GET http://localhost:8081/api/test/user
-########
-
-GET http://localhost:8081/api/test/admin
-########
-
-POST http://localhost:8080/login
+POST http://localhost:8080/user/login
 Content-Type: application/json
 
 {
-    "name": "Teddy",
-    "phone_number": "0817245057",
-    "email": "teddybear@gmail.com",
+    "username": "Teddy",
     "password": "0123456789"
 }

@@ -35,12 +35,14 @@ router.post('/user/signup', getUser, async (req, res) => {
             name: req.body.name,
             phone_number: req.body.phone_number,
             email: req.body.email,
-            password: req.body.password
+            password: hashedPassword
         });
         await user.save();
         res.send(user)
     }
 })
+
+router.post('/signup')
 
 router.patch("/user/login", async (req, res) => {
     try {
@@ -50,7 +52,7 @@ router.patch("/user/login", async (req, res) => {
           return res.status(404).send({ message: "User not found" });
         }
         let passwordIsValid = bcrypt.compareSync(
-          req.body.password,
+          hashedPassword,
           User.password
         );
         if (!passwordIsValid) {
@@ -69,7 +71,7 @@ const salt = await bcrypt.genSalt(10)
 const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
   const userDetails = {
-          username: req.body.name,
+      name: req.body.name,
       email: req.body.email,
       phone_number: req.body.phone_number,
       password: hashedPassword,
