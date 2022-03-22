@@ -60,7 +60,7 @@ app.post('/user/signup', async (req, res) => {
 app.post("/user/login", async (req, res) => {
   const username = req.body.name;
   const password = req.body.password;
-  const tenant = await User.find({username});
+  const tenant = await User.findOne({username});
   
   console.log(tenant);
 
@@ -70,6 +70,7 @@ app.post("/user/login", async (req, res) => {
       console.log('no tenant found')
       return res.status(400).json({msg: "Cannot find required tenant"})
     }
+    console.log(password, tenant.password)
     if (await bcrypt.compare(password, tenant.password)) {
       console.log("I found the user")
         const accessToken = jwt.sign(tenant._id, process.env.ACCESS_TOKEN_SECRET);
