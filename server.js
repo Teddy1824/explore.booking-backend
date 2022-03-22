@@ -69,12 +69,12 @@ app.post("/user/login", async (req, res) => {
   }
   try {
     if (await bcrypt.compare(req.body.password, tenant.password)) {
-      res.send("Success!");
+      return res.send("Success!");
     } else {
-      res.send("Sorry, you not authorized to login.")
+      return res.send("Sorry, you not authorized to login.")
     }
   } catch {
-    res.status(500).send()
+    return res.status(500).send()
   }
 });
 
