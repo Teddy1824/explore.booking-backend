@@ -59,7 +59,7 @@ app.post('/user/signup', async (req, res) => {
 
 app.post("/user/login", async (req, res) => {
   const username = req.body.name;
-  const password = req.body.password;
+  const {password} = req.body;
   const tenant = await User.findOne({username});
   
   console.log(tenant);
