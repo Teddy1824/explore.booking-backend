@@ -60,7 +60,7 @@ app.post("/user/login", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const user = { name: username, password: password };
-  const tenant = User.find((tenant) => tenant.username == req.body.username);
+  const tenant = User.find((tenant) => tenant.user == req.body.name);
   
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
   // res.json({ accessToken: accessToken });
