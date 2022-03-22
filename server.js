@@ -62,7 +62,7 @@ app.post("/user/login", async (req, res) => {
   const {password} = req.body;
   const tenant = await User.findOne({username});
   
-  console.log(tenant);
+  console.log(req.body);
 
   // res.json({ accessToken: accessToken });
   try {
