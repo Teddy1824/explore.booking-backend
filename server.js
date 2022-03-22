@@ -58,11 +58,11 @@ app.post('/user/signup', async (req, res) => {
 
 
 app.post("/user/login", async (req, res) => {
+  console.log(req.body);
   const username = req.body.name;
   const {password} = req.body;
   const tenant = await User.findOne({username});
   
-  console.log(req.body);
 
   // res.json({ accessToken: accessToken });
   try {
