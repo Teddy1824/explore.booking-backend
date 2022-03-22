@@ -65,7 +65,7 @@ app.post("/user/login", async (req, res) => {
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
   // res.json({ accessToken: accessToken });
   if(!tenant) {
-     res.status(400).send("Cannot find required tenant")
+     return res.status(400).send("Cannot find required tenant")
   }
   try {
     if (await bcrypt.compare(req.body.password, tenant.password)) {
