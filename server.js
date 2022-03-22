@@ -57,7 +57,7 @@ app.post('/user/signup', async (req, res) => {
 
 
 app.post("/user/login", async (req, res) => {
-  const tenant = users.find((tenant) => tenant.name == req.body.name);
+  const tenant = user.find((tenant) => tenant.name == req.body.name);
   const username = req.body.username;
   const password = req.body.password;
   const user = { name: username, password: password };
@@ -65,6 +65,7 @@ app.post("/user/login", async (req, res) => {
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
   // res.json({ accessToken: accessToken });
   if(!tenant) { 
+    console.log('no tenant found')
      return res.status(400).json({msg: "Cannot find required tenant"})
   }
   try {
