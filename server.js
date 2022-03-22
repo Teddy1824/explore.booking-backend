@@ -58,7 +58,7 @@ app.post('/user/signup', async (req, res) => {
 
 app.post("/user/login", async (req, res) => {
   const username = req.body.username;
-  const password = hashedPassword;
+  const password = req.body.password;
   const user = { name: username, password: password };
   const tenant = User.find({name});
   
