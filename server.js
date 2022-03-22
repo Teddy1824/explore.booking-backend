@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const bcrypt = require("bcrypt");
 const mongoose = require('mongoose')
 const places = require('./app/routes/places.routes');
 const user = require('./app/routes/user.routes');
