@@ -180,7 +180,7 @@ app.get("/", async (req, res) => {
 app.get("/", (req, res) => {
     const place = places.find(place => place.id === req.params.id);
     if (!place) res.status(404).send('Place not found... :(')
-    res.send(place)
+    return res.send(place)
 });
 
 app.post("/", (req, res) => {
@@ -201,7 +201,7 @@ app.put("/:id", (req, res) => {
     const place = places.find(c => c.id == parseInt(req.params.id));
     if (!place) res.status(404).send({ msg:'The requested place is not found.' })
     place.place = req.body.place;
-    res.send(place);
+    return res.send(place);
 });
 
 app.delete("/:id", (req, res) => {

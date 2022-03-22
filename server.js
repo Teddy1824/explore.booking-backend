@@ -59,18 +59,19 @@ app.post('/user/signup', async (req, res) => {
 app.post("/user/login", async (req, res) => {
   const username = req.body.name;
   const password = req.body.password;
-  const user = { name: username, password: password };
   const tenant = User.find({username});
   
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+  console.log(tenant);
+
   // res.json({ accessToken: accessToken });
-  if(!tenant) { 
-    console.log('no tenant found')
-     return res.status(400).json({msg: "Cannot find required tenant"})
-  }
   try {
-    if (await bcrypt.compare(req.body.password, tenant.password)) {
-       res.send({ msg: "Success!"});
+    if(!tenant) { 
+      console.log('no tenant found')
+      return res.status(400).json({msg: "Cannot find required tenant"})
+    }
+    if (await bcrypt.compare(password, tenant.password)) {
+        const accessToken = jwt.sign(tenant._id, process.env.ACCESS_TOKEN_SECRET);
+       res.send({ msg: "Success!", accessToken, tenant });
     } else {
        res.send({ msg: "Sorry, you not authorized to login."})
     }
