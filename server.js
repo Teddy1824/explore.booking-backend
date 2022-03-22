@@ -73,7 +73,7 @@ app.post("/user/login", async (req, res) => {
     console.log(password, tenant.password)
     if (await bcrypt.compare(password, tenant.password)) {
       console.log("I found the user")
-        const accessToken = jwt.sign(tenant._id, process.env.ACCESS_TOKEN_SECRET);
+      const accessToken = jwt.sign(JSON.stringify(tenant._id), process.env.ACCESS_TOKEN_SECRET);
        res.send({ msg: "Success!", accessToken, tenant });
     } else {
        res.send({ msg: "Sorry, you not authorized to login."})
