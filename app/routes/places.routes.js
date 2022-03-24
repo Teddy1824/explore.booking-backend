@@ -173,9 +173,14 @@ const app = express.Router()
 //     }
 // ]
 
-// app.get("/", async (req, res) => {
-//     res.send(places);
-// });
+app.get("/", async (req, res) => {
+    try {
+        const places = await reservation.find();
+        res.json(places);
+    } catch (err) {
+        res.status(500).json({ msg: err.msg })
+    }
+});
 
 app.get("/:id", (req, res) => {
     const place = places.find(place => place.id === req.params.id);
