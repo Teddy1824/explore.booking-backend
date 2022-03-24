@@ -10,7 +10,7 @@ const placesSchema = new mongoose.Schema({
         required: true
     },
     img: {
-        type: String,
+        type: Object,
         required: true
     },
     category: {
