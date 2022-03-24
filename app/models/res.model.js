@@ -1,36 +1,6 @@
 const mongoose = require('mongoose');
 
-const Schema = new mongoose.Schema({
-    place: {
-        type: String,
-        required: true,
-        min: 5,
-        max: 300
-    },
-    location: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-        required: true,
-        min: 5,
-        max: 300
-    },
-    img: {
-        type: String,
-        required: true
-    },
-    ratings: {
-        type: String,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true,
-        min: 3,
-        max: 7
-    },
+const resSchema = new mongoose.Schema({
     checkin: {
         type: Date,
         default: Date.now
@@ -38,7 +8,28 @@ const Schema = new mongoose.Schema({
     checkout: {
         type: Date,
         default: Date.now
+    },
+    numAdults: {
+       type: String,
+       required: true
+    },
+    numChildren: {
+        type: String,
+        required: true
+    },
+    rooms: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    phone: {
+        type: Number,
+        maxlength: 10
     }
 })
 
-module.exports = mongoose.model('res.model', Schema)
+module.exports = mongoose.model('Res', resSchema)

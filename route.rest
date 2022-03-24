@@ -5,8 +5,8 @@ Content-Type: application/json
 {
     "place": "Lifecycle",
     "location": "lifestyle",
-    "description": "boring",
     "img": "asdfghj",
-    "price": "0123456",
-     "category": "sdfg"
+    "category": "yfbdnskm",
+    "description": "boring",
+    "price": "0123456"  
 }
