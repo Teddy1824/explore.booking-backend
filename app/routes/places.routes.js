@@ -183,7 +183,7 @@ app.get("/:id", (req, res) => {
     return res.send(place)
 });
 
-app.post("/", (req, res) => {
+app.post("/", async (req, res) => {
     const places = new reservation ({
         place: req.body.place,
         location: req.body.location,
