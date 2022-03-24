@@ -3,10 +3,15 @@ POST https://booking-system-explore-booking.herokuapp.com/places
 Content-Type: application/json
 
 {
-    "place": "Lifecycle",
-    "location": "lifestyle",
-    "img": "asdfghj",
-    "category": "yfbdnskm",
-    "description": "boring",
-    "price": "0123456"  
+    "place": "The Palace of the Lost City",
+    "location": "Sun City, Rustenburg, 0316",
+    "img": {
+        "0": "https://lh3.googleusercontent.com/p/AF1QipORhrNlOh7fsd2JXmmGRKNSkJiPSsrpGXknDKBS=w296-h202-n-k-rw-no-v1",
+        "1": "https://lh3.googleusercontent.com/proxy/4xAOBSFbHwXtGJqHn6UEtFFy-J2AK429mUHioL8J0zm_JwQbMwUWanOm8cGKu2UH4f1wnp_9EhNi25gbolNNgMWFZ-T1xxn4PilzCi47kc3QEAp0iRm49n5LHLXt_g7b_0bZHfnpe-V9FDPjsu-iDtBOQx3Jxw=w296-h202-n-k-rw-no-v1",
+        "2": "https://lh3.googleusercontent.com/p/AF1QipP1B4A1PP_pGssGJQM5xq5pLfIG5yVRcj_-LBfp=w296-h202-n-k-rw-no-v1",
+        "3": "https://lh3.googleusercontent.com/proxy/OI4zFxiLDZ1jGb_HbIiFohwmp1TG9w6VXtJsXTDiyK_kMGxqlqpZWMrOyIXwYycxwCh96Rc3iy1B7RULd7GmVLEYbfT_sj7GXzgPHm9McluzbI8YMpSJ_dFo-cMUbVxy4M98YOqARnxEgj3Qc-_kD4kJUcB6XuQ=w296-h202-n-k-rw-no-v1"
+    },
+    "category": "Hotel",
+    "description": "Opulent resort hotel offering elegant rooms, plus 5 restaurants, a day spa & an outdoor pool",
+    "price": "4.404"  
 }
