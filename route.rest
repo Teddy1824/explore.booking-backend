@@ -1,8 +1,12 @@
 
-POST http://localhost:8080/user/login
+POST https://booking-system-explore-booking.herokuapp.com/places
 Content-Type: application/json
 
 {
-    "username": "Teddy",
-    "password": "0123456789"
+    "place": "Lifecycle",
+    "location": "lifestyle",
+    "description": "boring",
+    "img": "asdfghj",
+    "price": "0123456",
+     "category": "sdfg"
 }
