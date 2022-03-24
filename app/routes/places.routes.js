@@ -61,7 +61,7 @@ const app = express.Router()
 //     },
 //     {
 //         id: "5",
-//         place: "The Kingdom Resort",
+//     com    place: "The Kingdom Resort",
 //         location: "R556, South Village, Pilanesberg National Park, 0316",
 //         img: {
 //             0: "https://lh3.googleusercontent.com/proxy/eaEYsEAr02QD2D1TSgf8wNWz9e5C8B-hL3DgCBW7B0SsyekWk1VPYjAuyEJWvNwKGfE89gjCeB6XhavnkT_uIUeLXNnl2pqJQhdpi3s8A4XZehA9QYV4rA9vspR_Bx7hihDZ-GwP55Rsyo7z_4h_bGA14cMilww=w296-h202-n-k-rw-no-v1",
@@ -219,6 +219,21 @@ app.delete("/:id", (req, res) => {
     places = places.filter((place) => place.id != req.params.id);
     res.send({ msg:'Place removed' })
 });
+
+async function getPlaces(req, res, next) {
+    let places;
+    try {
+        places = await reservation.findById(req.params.id);
+        if (places == null) {
+            return res.status(404).json({ msg: "Cannot find place" });
+        } 
+    } catch (err) {
+        return res.status(500).json({ msg: err.msg});
+    }
+
+    res.places = places;
+    next();
+} 
 
 module.exports = app
 
