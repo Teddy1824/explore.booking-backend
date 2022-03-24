@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const placesSchema = new moongose.Schema({
+const placesSchema = new mongoose.Schema({
     place: {
         type: String,
         required: true
