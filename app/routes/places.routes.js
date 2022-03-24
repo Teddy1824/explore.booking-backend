@@ -177,7 +177,7 @@ app.get("/", async (req, res) => {
     res.send(places);
 });
 
-app.get("/", (req, res) => {
+app.get("/:id", (req, res) => {
     const place = places.find(place => place.id === req.params.id);
     if (!place) res.status(404).send('Place not found... :(')
     return res.send(place)
