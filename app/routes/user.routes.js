@@ -21,28 +21,24 @@ router.get('/:id', getUser, (req,res) => {
 });
 
 //adding users
-router.post('/user/signup', getUser, async (req, res) => {
-    const {error} = validate(req.body);
-    if (error) {
-        return res.status(400).send(error.details[0].message);
-    }
-
-    let user = await User.findOne({ email: req.body.email });
-    if(user) {
-        return res.status(400).send('Sorry we already have that user :(')
-    } else {
-        user = new User({
-            name: req.body.name,
-            phone_number: req.body.phone_number,
-            email: req.body.email,
-            password: hashedPassword
-        });
-        await user.save();
-        res.send(user)
-    }
+router.post('/signup', async (req, res) => {
+  try {
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const user = new User ({
+      name: req.body.name,
+      phone_number: req.body.phone_number,
+      email: req.body.email,
+      password: hashedPassword
+    });
+    const newUser = await user.save();
+    res.status(201).json(newUser);
+    console.log(salt);
+    console.log(hashedPassword);
+  } catch (err) {
+    res.status(400).json({ msg: err.msg })
+  }
 })
-
-router.post('/signup')
 
 // LOGIN user with email + password
 router.post("/login", async (req, res, next) => {

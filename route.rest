@@ -16,10 +16,15 @@ Content-Type: application/json
 }
 
 ###
-POST https://booking-system-explore-booking.herokuapp.com/user/login
+POST https://booking-system-explore-booking.herokuapp.com/user/signup
 Content-Type: application/json
 
 {
   "name": "Teddy",
+  "phone_number":"0123456889",
+  "email": "teddy@gmail.com",
   "password": "0123456789"
 }
+###
+GET https://booking-system-explore-booking.herokuapp.com/users
+c
