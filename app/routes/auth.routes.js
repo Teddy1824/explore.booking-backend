@@ -3,8 +3,8 @@ const router = express.Router();
 
 const checkDUplicateNameOrEmail = require("../middleware/verifySignup");
 
-router.post("/signup", checkDUplicateNameOrEmail, controller.signup);
+router.post("/signup", checkDUplicateNameOrEmail);
 
-router.post("/login", controller.login);
+router.post("/login",);
 
 module.exports = router;
