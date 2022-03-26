@@ -44,37 +44,26 @@ router.post('/user/signup', getUser, async (req, res) => {
 
 router.post('/signup')
 
-router.post("/user/login", async (req, res) => {
-    try {
-      User.findOne({ name: req.body.name }, (err, user) => {
-        if (err) return handleError(error);
-        if (!user) {
-          return res.status(404).send({ message: "User not found" });
-        }
-        let passwordIsValid = bcrypt.compareSync(
-          hashedPassword,
-          user.password
-        );
-        if (!passwordIsValid) {
-          return res.status(401).send({ message: "invalid password" });
-        }
+// LOGIN user with email + password
+app.post("/login", async (req, res, next) => {
+  const { name, password } = req.body;
+  const user = await User.findOne({ name });
+  console.log(user);
+  console.log(password);
 
-        let token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, {
-          expiresIn: 86400,
-        });
-        res.status(200).send({
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          password: user.password,
-          phone_number: user.phone_number,
-          accessToken: token
-        })
-      });
-    } catch (error) {
-      res.status(400).json({ message: error.message });
-    }
-  });
+  if (!user) res.status(404).json({ message: "Could not find user" });
+  if (await bcrypt.compare(password, user.password)) {
+      try {
+          const access_token = jwt.sign( JSON.stringify(user), process.env.ACCESS_TOKEN_SECRET);
+          res.status(201).json({ jwt: access_token });
+      } catch (error) {
+          res.status(500).json({ message: error.message });
+      }
+  } else {
+      res.status(400).json({ message: "Name and password combination do not match" });
+  }
+});
+
 
 //update user
 router.put('/:id', async (req,res) => {
