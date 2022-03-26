@@ -43,6 +43,8 @@ router.post('/signup', async (req, res) => {
 // LOGIN user with email + password
 router.post("/login", async (req, res, next) => {
  try {
+   const result = JSON.parse('');
+   console.log(result)
    User.findOne({ name: req.body.name }, (err, user) => {
      if (!user) {
        return res.status(404).send({ msg: "User not found." })

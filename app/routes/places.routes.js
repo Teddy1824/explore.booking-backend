@@ -215,7 +215,7 @@ app.put("/:id", (req, res) => {
 });
 
 app.delete("/:id", (req, res) => {
-    places = places.filter((place) => place.id != req.params.id);
+    const places = places.filter((place) => place.id != req.params.id);
     res.send({ msg:'Place removed' })
 });
 

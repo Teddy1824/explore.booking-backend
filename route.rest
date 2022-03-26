@@ -25,4 +25,10 @@ Content-Type: application/json
 }
 ###
 GET https://booking-system-explore-booking.herokuapp.com/users
-c
+###
+
+DELETE https://booking-system-explore-booking.herokuapp.com/users/623440b9bfef25c737787d2b
+###
+DELETE https://booking-system-explore-booking.herokuapp.com/places/
+###
+DELETE https://booking-system-explore-booking.herokuapp.com/places/623d682a87acb6348b9cc975
