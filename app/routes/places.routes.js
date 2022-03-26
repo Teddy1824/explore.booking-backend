@@ -208,10 +208,10 @@ app.post("/", async (req, res) => {
 });
 
 app.put("/:id", (req, res) => {
-    const place = places.find(c => c.id == parseInt(req.params.id));
-    if (!place) res.status(404).send({ msg:'The requested place is not found.' })
+    const places = places.find(c => c.id == parseInt(req.params.id));
+    if (!places) res.status(404).send({ msg:'The requested place is not found.' })
     place.place = req.body.place;
-    return res.send(place);
+    return res.send(places);
 });
 
 app.delete("/:id", (req, res) => {
