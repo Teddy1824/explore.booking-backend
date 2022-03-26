@@ -202,7 +202,7 @@ app.post("/", async (req, res) => {
         res.status(201).json(newPlace);
     } catch (err) {
         res.status(400).json({msg: err})
-    }
+    }   
     // places.push(place);
     // res.send(place);
 });
@@ -210,7 +210,7 @@ app.post("/", async (req, res) => {
 app.put("/:id", (req, res) => {
     const places = places.find(c => c.id == parseInt(req.params.id));
     if (!places) res.status(404).send({ msg:'The requested place is not found.' })
-    place.place = req.body.place;
+    places.place = req.body.place;
     return res.send(places);
 });
 
