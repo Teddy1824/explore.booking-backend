@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ###
-POST https://booking-system-explore-booking.herokuapp.com/user/signup
+POST https://booking-system-explore-booking.herokuapp.com/users/signup
 Content-Type: application/json
 
 {

@@ -42,24 +42,38 @@ router.post('/signup', async (req, res) => {
 
 // LOGIN user with email + password
 router.post("/login", async (req, res, next) => {
-  const { name, password } = req.body;
-  const user = await User.findOne({ name });
-  console.log(user);
-  console.log(password);
-
-  if (!user) res.status(404).json({ message: "Could not find user" });
-  if (await bcrypt.compare(password, user.password)) {
-      try {
-          const access_token = jwt.sign( JSON.stringify(user), process.env.ACCESS_TOKEN_SECRET);
-          res.status(201).json({ jwt: access_token });
-      } catch (error) {
-          res.status(500).json({ message: error.message });
-      }
-  } else {
-      res.status(400).json({ message: "Name and password combination do not match" });
-  }
-});
-
+ try {
+   User.findOne({ name: req.body.name }, (err, user) => {
+     if (!user) {
+       return res.status(404).send({ msg: "User not found." })
+     }
+     if (err) 
+       return handleError(err);
+       let passwordIsValid = bcrypt.compareSync(
+         req.body.password,
+         user.password
+       );
+       if (!passwordIsValid) {
+         return res.status(401).send({
+           msg: "Invalid password"
+         });
+       }
+       let token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, {
+         expiresIn: 86400
+       });
+       res.status(200).send({
+         id: user._id,
+         name: user.name,
+         phone_number: user.phone_number,
+         email: user.email,
+         password: user.password,
+         accessToken: token
+       });
+   })
+ } catch (err) {
+   res.status(400).json({ msg: err.msg })
+ }
+}
 
 //update user
 router.put('/:id', async (req,res) => {
