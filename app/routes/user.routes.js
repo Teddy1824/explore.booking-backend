@@ -49,15 +49,15 @@ router.post("/login", async (req, res, next) => {
      }
      if (err) 
        return handleError(err);
-       let passwordIsValid = JSON.parse(stringifiedJSON);bcrypt.compareSync(
-         req.body.password,
-         user.password
-       );
-       if (!passwordIsValid) {
-         return res.status(401).send({
-           msg: "Invalid password"
-         });
-       }
+      //  let passwordIsValid = bcrypt.compareSync(
+      //    req.body.password,
+      //    user.password
+      //  );
+      //  if (!passwordIsValid) {
+      //    return res.status(401).send({
+      //      msg: "Invalid password"
+      //    });
+      //  }
        let token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, {
          expiresIn: 86400
        });
