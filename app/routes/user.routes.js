@@ -49,7 +49,7 @@ router.post("/login", async (req, res, next) => {
      }
      if (err) 
        return handleError(err);
-       let passwordIsValid = bcrypt.compareSync(
+       let passwordIsValid = JSON.parse(stringifiedJSON);bcrypt.compareSync(
          req.body.password,
          user.password
        );
