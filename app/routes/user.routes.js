@@ -73,7 +73,7 @@ router.post("/login", async (req, res, next) => {
  } catch (err) {
    res.status(400).json({ msg: err.msg })
  }
-}
+})
 
 //update user
 router.put('/:id', async (req,res) => {
