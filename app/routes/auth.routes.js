@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const checkDUplicateNameOrEmail = require("../middleware/verifySignUp");
+const checkDUplicateNameOrEmail = require("../middleware/verifySignup");
 
 router.post("/signup", checkDUplicateNameOrEmail, controller.signup);
 
