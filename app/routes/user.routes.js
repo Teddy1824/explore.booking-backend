@@ -44,20 +44,32 @@ router.post('/user/signup', getUser, async (req, res) => {
 
 router.post('/signup')
 
-router.patch("/user/login", async (req, res) => {
+router.post("/user/login", async (req, res) => {
     try {
       User.findOne({ name: req.body.name }, (err, user) => {
-        if (error) return handleError(error);
+        if (err) return handleError(error);
         if (!user) {
           return res.status(404).send({ message: "User not found" });
         }
         let passwordIsValid = bcrypt.compareSync(
           hashedPassword,
-          User.password
+          user.password
         );
         if (!passwordIsValid) {
           return res.status(401).send({ message: "invalid password" });
         }
+
+        let token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, {
+          expiresIn: 86400,
+        });
+        res.status(200).send({
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          password: user.password,
+          phone_number: user.phone_number,
+          accessToken: token
+        })
       });
     } catch (error) {
       res.status(400).json({ message: error.message });
