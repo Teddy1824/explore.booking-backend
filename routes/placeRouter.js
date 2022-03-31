@@ -19,7 +19,7 @@ router.get("/:id", getPlaces, (req, res) => {
 
 // Create Blog
 router.post("/", async (req, res) => {
-  const blogs = new placesModels({
+  const places = new placesModels({
     place: req.body.place,
     location: req.body.location,
     description: req.body.description,
@@ -65,21 +65,21 @@ router.patch("/:id", getPlaces, async (req, res) => {
 });
 
 // Delete Blog
-// router.delete("/:id", getBlogs, async (req, res) => {
-//   try {
-//     await res.blogs.remove();
-//     res.json({ message: "Blog Deleted" });
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
+router.delete("/:id", getPlaces, async (req, res) => {
+  try {
+    await res.places.remove();
+    res.json({ message: "Place Deleted" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 async function getPlaces(req, res, next) {
   let places;
   try {
     places = await placesModels.findById(req.params.id);
     if (places == null) {
-      return res.status(404).json({ message: "Cannot find blog" });
+      return res.status(404).json({ message: "Cannot find place" });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
