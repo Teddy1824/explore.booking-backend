@@ -4,8 +4,10 @@ const placeM = require('../models/places.model')
 const router = express.Router()
 
 
+
 router.get('/', async (req, res) => {
     try {
+        
         const allPlaces = await placeM.find()
         res.status(200).json({ msg: "Yeey, you have found the places", results: allPlaces})
         } catch (err) {
@@ -55,7 +57,7 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", getPlaces, async (req, res) => {
     try{
         await res.allPlaces.remove();
-        res.json({ msg: "Place removed successfully." });
+        res.json({ msg: "Place removed successfully.", results: allPlaces});
     } catch (err) {
         res.status(500).json({ msg: err.msg })
     }
