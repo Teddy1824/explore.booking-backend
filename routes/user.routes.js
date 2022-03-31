@@ -91,9 +91,9 @@ const salt = await bcrypt.genSalt(10)
       password: hashedPassword,
 
   };
-  User.findByIdAndUpdate(req.params._id, { $set:userDetails }, { new: true }, (err, data) => {
+  User.findByIdAndUpdate(req.params._id, { $set:userDetails }, { new: true }, (err) => {
       if(!err) {
-              res.status(200).json({ message: "User updated successfully", updateUser: data })
+              res.status(200).json({ message: "User updated successfully" })
       } else {
           console.log(err);
       }
