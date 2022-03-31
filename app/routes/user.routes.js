@@ -114,7 +114,7 @@ try {
      await res.usersAll.remove();
      res.json({ msg: "User deleted Successfully"})
    
-} catch (error) {
+} catch (err) {
   res.status(500).json({ msg: err.msg })
 }
 
