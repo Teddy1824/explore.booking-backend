@@ -1,4 +1,4 @@
-GET https://booking-system-explore-booking.herokuapp.com/places
+GET https://booking-system-explore-booking.herokuapp.com/users/62432473b76de8a168421fa0
 ###
 
 POST https://booking-system-explore-booking.herokuapp.com/places
@@ -36,7 +36,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE https://booking-system-explore-booking.herokuapp.com/users/623440b9bfef25c737787d2b
+DELETE https://booking-system-explore-booking.herokuapp.com/users/62432473b76de8a168421fa0
 ###
 
 DELETE https://booking-system-explore-booking.herokuapp.com/places/624596424d57ca54353b69a3

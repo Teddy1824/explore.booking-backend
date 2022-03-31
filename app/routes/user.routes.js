@@ -4,6 +4,7 @@ const router = express.Router()
 const allUsers = require("../models/user.model")
 const User = require("../models/user.model")
 const jwt = require('jsonwebtoken')
+const res = require('express/lib/response')
 
 // get all users
 router.get('/', async (req, res) => {
@@ -100,16 +101,24 @@ const salt = await bcrypt.genSalt(10)
 });
 
 //delete user
-router.delete("/:id", (req,res) => {
-      User.findByIdAndRemove(req.params._id, (data) => {
-              if(data == null) {
-          res.status(404).json({ message: "User not found/does not exist"})
-      } else {
-          res.status(200).json({message: "User deleted Successfully"})
-      }
-  })
+router.delete("/:id", async (req,res) => {
+  //     User.findByIdAndRemove(req.params._id, (data) => {
+  //             if(data == null) {
+  //         res.status(404).json({ message: "User not found/does not exist"})
+  //     } else {
+  //         res.status(200).json({message: "User deleted Successfully"})
+  //     }
+  // })
 
-});
+try {
+     await res.usersAll.remove();
+     res.json({ msg: "User deleted Successfully"})
+   
+} catch (error) {
+  res.status(500).json({ msg: err.msg })
+}
+
+})
 
 
 async function getUser(req, res, next) {
