@@ -5,6 +5,7 @@ const app = express();
 const bcrypt = require("bcrypt");
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const user = require('./routes/user.routes')
 
 
 app.use(cors());
@@ -35,7 +36,7 @@ function authenticateToken(req, res, next) {
 
 const placeRoute = require("./routes/placeRouter")
 app.use("/places", placeRoute)
-// app.use("/users", user)
+app.use("/users", user)
 // app.use("/bookings", booking)
 
 const PORT = process.env.PORT || 8082;

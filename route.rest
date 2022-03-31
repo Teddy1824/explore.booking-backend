@@ -16,15 +16,39 @@ Content-Type: application/json
 }
 ###
 
+PUT https://booking-system-explore-booking.herokuapp.com/places/
+Content-Type: application/json
+
+{
+ "place": "",
+ "location": "",
+ "img": "",
+ "catergory": "",
+ "description": "",
+ "price": ""
+}
+###
+
+
+DELETE https://booking-system-explore-booking.herokuapp.com/places/6242ee80956fca7308bf3cc9
+###
+
+####################################################################################
+GET https://booking-system-explore-booking.herokuapp.com/users
+###
+
+GET https://booking-system-explore-booking.herokuapp.com/user/
+###
+
 POST https://booking-system-explore-booking.herokuapp.com/users/login
 Content-Type: application/json
 
 {
   "name": "teddy",
+  "phone_number": "1234567890",
+  "email": "teddy@gmail.com",
   "password": "0123456789"
 }
-###
-GET https://booking-system-explore-booking.herokuapp.com/users/
 ###
 
 PUT https://booking-system-explore-booking.herokuapp.com/users/623440b9bfef25c737787d2b
@@ -38,8 +62,4 @@ Content-Type: application/json
 ###
 DELETE https://booking-system-explore-booking.herokuapp.com/users/62432473b76de8a168421fa0
 Content-Type: application/json
-
-###
-
-DELETE https://booking-system-explore-booking.herokuapp.com/places/624596424d57ca54353b69a3
 ###
