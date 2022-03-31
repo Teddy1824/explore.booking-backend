@@ -174,9 +174,9 @@ const app = express.Router()
 //     }
 // ]
 
-app.get("/", async (req, res) => {
+app.get("/",  (req, res) => {
     try {
-        const places = await placeM.find();
+        const places = placeM.find();
         res.json(places);
     } catch (err) {
         res.status(500).json({ msg: err.msg })
@@ -184,7 +184,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/:id", getPlaces, (req, res) => {
-    res.send(req.places);
+    res.send(places);
 });
 
 app.post("/", async (req, res) => {
@@ -215,7 +215,8 @@ app.put("/:id", (req, res) => {
 });
 
 app.delete("/:id", (req, res) => {
-    const places = places.filter((place) => place.id != req.params.id);
+    const places = places.filter((places) => places.id != req.params.id);
+    console.log(places)
     res.send({ msg:'Place removed' })
 });
 

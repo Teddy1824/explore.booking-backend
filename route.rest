@@ -1,8 +1,11 @@
+GET https://booking-system-explore-booking.herokuapp.com/places/6242ee80956fca7308bf3cc9
+###
+
 POST https://booking-system-explore-booking.herokuapp.com/places
 Content-Type: application/json
 
 {
-"place": "Protea Hotel Fire & Ice!",
+"place": "LifeChoices",
 "location": "64 New Church St, Tamboerskloof, Cape Town, 8018",
 "img": {
   "0": "https://lh3.googleusercontent.com/p/AF1QipM9FHr1C9TP392ydMmQVqAbeUFWElu-f676lQ5v=w296-h202-n-k-rw-no-v1",
@@ -14,21 +17,32 @@ Content-Type: application/json
 "description": "Chic rooms with free WiFi, plus an outdoor pool, a restaurant, a lounge bar and free bike rental.",
 "price": "1.18"
 }
-
 ###
+
 POST https://booking-system-explore-booking.herokuapp.com/users/login
 Content-Type: application/json
 
 {
-  "name": "Teddy",
+  "name": "teddy",
   "password": "0123456789"
 }
 ###
-GET https://booking-system-explore-booking.herokuapp.com/users
+GET https://booking-system-explore-booking.herokuapp.com/users/623440b9bfef25c737787d2b
 ###
 
+PUT https://booking-system-explore-booking.herokuapp.com/users/623440b9bfef25c737787d2b
+Content-Type: application/json
+
+{
+  "name": "Inathi",
+  "email": "bsdfg@gmail.com"
+}
+
+###
 DELETE https://booking-system-explore-booking.herokuapp.com/users/623440b9bfef25c737787d2b
 ###
-DELETE https://booking-system-explore-booking.herokuapp.com/places/
+
+DELETE https://booking-system-explore-booking.herokuapp.com/places/623440b9bfef25c737787d2b
 ###
+
 DELETE https://booking-system-explore-booking.herokuapp.com/places/623d682a87acb6348b9cc975

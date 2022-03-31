@@ -21,7 +21,7 @@ router.get('/:id', getUser, (req,res) => {
 });
 
 //adding users
-router.post('/signup', async (req, res) => {
+router.post('/signup', DuplicatedUsernameorEmail ,async (req, res) => {
   try {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -36,7 +36,7 @@ router.post('/signup', async (req, res) => {
     console.log(salt);
     console.log(hashedPassword);
   } catch (err) {
-    res.status(400).json({ msg: err.msg })
+    res.status(400).json({ message: err.message })
   }
 })
 
@@ -51,15 +51,15 @@ router.post("/login", async (req, res, next) => {
      }
      if (err) 
        return handleError(err);
-      //  let passwordIsValid = bcrypt.compareSync(
-      //    req.body.password,
-      //    user.password
-      //  );
-      //  if (!passwordIsValid) {
-      //    return res.status(401).send({
-      //      msg: "Invalid password"
-      //    });
-      //  }
+       let passwordIsValid = bcrypt.compareSync(
+         req.body.password,
+         user.password
+       );
+       if (!passwordIsValid) {
+         return res.status(401).send({  
+           msg: "Invalid password"
+         });
+       }
        let token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, {
          expiresIn: 86400
        });
@@ -73,7 +73,7 @@ router.post("/login", async (req, res, next) => {
        });
    })
  } catch (err) {
-   res.status(400).json({ msg: err.msg })
+   res.status(400).json({ message: err.message })
  }
 })
 
@@ -81,7 +81,7 @@ router.post("/login", async (req, res, next) => {
 router.put('/:id', async (req,res) => {
       //encrypt passwords
 const salt = await bcrypt.genSalt(10)
-const hashedPassword = await bcrypt.hash(req.body.password, salt);
+ const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
   const userDetails = {
       name: req.body.name,
@@ -92,7 +92,7 @@ const hashedPassword = await bcrypt.hash(req.body.password, salt);
   };
   User.findByIdAndUpdate(req.params._id, { $set:userDetails }, { new: true }, (err, data) => {
       if(!err) {
-              res.status(200).json({ code:200, message: "User updated successfully", updateUser: data })
+              res.status(200).json({ message: "User updated successfully", updateUser: data })
       } else {
           console.log(err);
       }
@@ -101,10 +101,10 @@ const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
 //delete user
 router.delete("/:id", (req,res) => {
-      User.findByIdAndRemove(req.params._id, (err, data) => {
+      User.findByIdAndRemove(req.params._id, (data) => {
               if(data == null) {
           res.status(404).json({ message: "User not found/does not exist"})
-      }else {
+      } else {
           res.status(200).json({message: "User deleted Successfully"})
       }
   })
@@ -124,8 +124,21 @@ async function getUser(req, res, next) {
   }
   res.user = user
   next()
+}
 
+async function DuplicatedUsernameorEmail(req, res, next) {
+  let user;
 
+  try {
+    user = await User.findOne({ name: req.body.name });
+    email = await User.findOne({ email: req.body.email });
+    if(user || email) {
+      return res.status(404).send({ msg: "Name already in use  :(" })
+    }
+  } catch (err) {
+    return res.status(500).json({ msg: err.msg });
+  }
+  next()
 }
 
 module.exports.getUser = getUser
