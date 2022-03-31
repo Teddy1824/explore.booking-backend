@@ -39,8 +39,8 @@ function authenticateToken(req, res, next) {
   });
 }
 
-const placesRoutes = require("./app/routes/placesRoutes")
-app.use("/places", placesRoutes)
+const placeRoutes = require("./app/routes/placeRoutes")
+app.use("/places", placeRoutes)
 app.use("/users", user)
 app.use("/bookings", booking)
 

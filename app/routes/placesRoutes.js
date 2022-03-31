@@ -1,6 +1,6 @@
 const express = require("express")
 const reservation = require("../models/res.model")
-const placeM = require('../models/places.model')
+const placeM = require('../models/places')
 const router = express.Router()
 
 
