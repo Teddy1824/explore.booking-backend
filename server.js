@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 const bcrypt = require("bcrypt");
 const mongoose = require('mongoose')
-const places = require('./app/routes/places.routes');
+const places = require('./app/routes/placesRoutes');
 const user = require('./app/routes/user.routes');
 const booking = require('./app/routes/booking.routes');
 const jwt = require('jsonwebtoken')
@@ -39,8 +39,8 @@ function authenticateToken(req, res, next) {
   });
 }
 
-
-app.use("/places", places)
+const placesRoutes = require("./app/routes/placesRoutes")
+app.use("/places", placesRoutes)
 app.use("/users", user)
 app.use("/bookings", booking)
 

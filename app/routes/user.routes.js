@@ -133,7 +133,7 @@ async function DuplicatedUsernameorEmail(req, res, next) {
     user = await User.findOne({ name: req.body.name });
     email = await User.findOne({ email: req.body.email });
     if(user || email) {
-      return res.status(404).send({ msg: "Name already in use  :(" })
+      return res.status(404).send({ msg: "Name or Email already in use  :(" })
     }
   } catch (err) {
     return res.status(500).json({ msg: err.msg });

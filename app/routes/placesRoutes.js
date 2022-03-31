@@ -1,7 +1,7 @@
 const express = require("express")
 const reservation = require("../models/res.model")
 const placeM = require('../models/places.model')
-const app = express.Router()
+const router = express.Router()
 
 // let places = [
 //     {
@@ -174,20 +174,29 @@ const app = express.Router()
 //     }
 // ]
 
-app.get("/",  (req, res) => {
+
+router.get('/', async (req, res) => {
     try {
-        const places = placeM.find();
+        const allPlaces = await placeM.find()
+        res.status(200).json({ msg: "Yeey, you have found the places", results: usersAll})
+        } catch (err) {
+            res.status(500).json({ message: err.message})
+        }
+  })
+router.get("/", async (req, res) => {
+    try {
+        const places = await placeM.find();
         res.json(places);
     } catch (err) {
         res.status(500).json({ msg: err.msg })
     }
 });
 
-app.get("/:id", getPlaces, (req, res) => {
+router.get("/:id", getPlaces, (req, res) => {
     res.send(places);
 });
 
-app.post("/", async (req, res) => {
+router.post("/", async (req, res) => {
     const places = new placeM ({
         place: req.body.place,
         location: req.body.location,
@@ -207,14 +216,14 @@ app.post("/", async (req, res) => {
     // res.send(place);
 });
 
-app.put("/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     const places = places.find(c => c.id == parseInt(req.params.id));
     if (!places) res.status(404).send({ msg:'The requested place is not found.' })
     places.place = req.body.place;
     return res.send(places);
 });
 
-app.delete("/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     const places = places.filter((places) => places.id != req.params.id);
     console.log(places)
     res.send({ msg:'Place removed' })
@@ -235,5 +244,5 @@ async function getPlaces(req, res, next) {
     next();
 } 
 
-module.exports = app;
+module.exports = router;
 

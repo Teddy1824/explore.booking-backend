@@ -1,4 +1,4 @@
-GET https://booking-system-explore-booking.herokuapp.com/places/6242ee80956fca7308bf3cc9
+GET https://booking-system-explore-booking.herokuapp.com/places
 ###
 
 POST https://booking-system-explore-booking.herokuapp.com/places
@@ -7,15 +7,12 @@ Content-Type: application/json
 {
 "place": "LifeChoices",
 "location": "64 New Church St, Tamboerskloof, Cape Town, 8018",
-"img": {
-  "0": "https://lh3.googleusercontent.com/p/AF1QipM9FHr1C9TP392ydMmQVqAbeUFWElu-f676lQ5v=w296-h202-n-k-rw-no-v1",
-  "1": "https://lh3.googleusercontent.com/p/AF1QipM9LqepbBst5pZDmA_hPhkGwMbGz0o4q2cfF8NP=w296-h202-n-k-rw-no-v1",
-  "2": "https://lh3.googleusercontent.com/p/AF1QipNC_qZ0pORXRpKIhh31EYTCZ6E2aS7aCh1Bs1Lo=w296-h202-n-k-rw-no-v1",
-  "3": "https://lh3.googleusercontent.com/p/AF1QipOMB5hT16iSfHZAVwHgO_LI33btk9mhFoNGzOyh=w296-h202-n-k-rw-no-v1"
-},
+"img": 
+ "https://lh3.googleusercontent.com/p/AF1QipM9FHr1C9TP392ydMmQVqAbeUFWElu-f676lQ5v=w296-h202-n-k-rw-no-v1",
+
 "category": "Hotel",
 "description": "Chic rooms with free WiFi, plus an outdoor pool, a restaurant, a lounge bar and free bike rental.",
-"price": "1.18"
+"price": "118"
 }
 ###
 
@@ -27,7 +24,7 @@ Content-Type: application/json
   "password": "0123456789"
 }
 ###
-GET https://booking-system-explore-booking.herokuapp.com/users/623440b9bfef25c737787d2b
+GET https://booking-system-explore-booking.herokuapp.com/users/
 ###
 
 PUT https://booking-system-explore-booking.herokuapp.com/users/623440b9bfef25c737787d2b

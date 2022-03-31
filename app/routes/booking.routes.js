@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { getUser } = require('./user.routes')
 const jwt = require('jsonwebtoken');
-const places = require('./places.routes');
+const places = require('./placesRoutes');
 const User = require('../models/user.model')
 const booking = require('../routes/booking.routes')
 
