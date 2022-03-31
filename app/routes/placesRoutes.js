@@ -178,19 +178,19 @@ const router = express.Router()
 router.get('/', async (req, res) => {
     try {
         const allPlaces = await placeM.find()
-        res.status(200).json({ msg: "Yeey, you have found the places", results: usersAll})
+        res.status(200).json({ msg: "Yeey, you have found the places", results: allPlaces})
         } catch (err) {
             res.status(500).json({ message: err.message})
         }
   })
-router.get("/", async (req, res) => {
-    try {
-        const places = await placeM.find();
-        res.json(places);
-    } catch (err) {
-        res.status(500).json({ msg: err.msg })
-    }
-});
+// router.get("/", async (req, res) => {
+//     try {
+//         const places = await placeM.find();
+//         res.json(places);
+//     } catch (err) {
+//         res.status(500).json({ msg: err.msg })
+//     }
+// });
 
 router.get("/:id", getPlaces, (req, res) => {
     res.send(places);
