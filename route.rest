@@ -1,4 +1,4 @@
-GET https://booking-system-explore-booking.herokuapp.com/users/62432473b76de8a168421fa0
+GET https://booking-system-explore-booking.herokuapp.com/places
 ###
 
 POST https://booking-system-explore-booking.herokuapp.com/places

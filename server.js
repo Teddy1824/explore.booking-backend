@@ -4,12 +4,7 @@ const cors = require("cors");
 const app = express();
 const bcrypt = require("bcrypt");
 const mongoose = require('mongoose')
-const places = require('./app/routes/placesRoutes');
-const user = require('./app/routes/user.routes');
-const booking = require('./app/routes/booking.routes');
 const jwt = require('jsonwebtoken')
-const auth = require('./app/routes/auth.routes');
-const User = require("./app/models/user.model");
 
 
 app.use(cors());
@@ -18,7 +13,6 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', auth)
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true
   })
@@ -39,10 +33,10 @@ function authenticateToken(req, res, next) {
   });
 }
 
-const placeRoutes = require("./app/routes/placeRoutes")
-app.use("/places", placeRoutes)
-app.use("/users", user)
-app.use("/bookings", booking)
+const placeRoute = require("./routes/placeRouter")
+app.use("/places", placeRoute)
+// app.use("/users", user)
+// app.use("/bookings", booking)
 
 const PORT = process.env.PORT || 8082;
 app.listen(PORT, () => {
