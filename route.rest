@@ -37,6 +37,8 @@ Content-Type: application/json
 
 ###
 DELETE https://booking-system-explore-booking.herokuapp.com/users/62432473b76de8a168421fa0
+Content-Type: application/json
+
 ###
 
 DELETE https://booking-system-explore-booking.herokuapp.com/places/624596424d57ca54353b69a3
