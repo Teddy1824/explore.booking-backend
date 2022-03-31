@@ -52,7 +52,7 @@ router.put("/:id", (req, res) => {
     return res.send(places);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", getPlaces, async (req, res) => {
     try{
         await res.allPlaces.remove();
         res.json({ msg: "Place removed successfully." });
