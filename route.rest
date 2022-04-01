@@ -1,4 +1,4 @@
-GET https://booking-system-explore-booking.herokuapp.com/places
+GET https://booking-system-explore-booking.herokuapp.com/places/
 ###
 
 POST https://booking-system-explore-booking.herokuapp.com/places
@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 ###
 
-PUT https://booking-system-explore-booking.herokuapp.com/places/
+PUT https://booking-system-explore-booking.herokuapp.com/places/623c7d0cb9a659d74ac0b6c4
 Content-Type: application/json
 
 {
@@ -37,7 +37,7 @@ DELETE https://booking-system-explore-booking.herokuapp.com/places/6242ee80956fc
 GET https://booking-system-explore-booking.herokuapp.com/users
 ###
 
-GET https://booking-system-explore-booking.herokuapp.com/users/
+GET https://booking-system-explore-booking.herokuapp.com/users/62432473b76de8a168421fa0
 ###
 
 POST https://booking-system-explore-booking.herokuapp.com/users/login
@@ -45,13 +45,11 @@ Content-Type: application/json
 
 {
   "name": "teddy",
-  "phone_number": "1234567890",
-  "email": "teddy@gmail.com",
   "password": "0123456789"
 }
 ###
 
-PUT https://booking-system-explore-booking.herokuapp.com/users/62432473b76de8a168421fa0
+POST https://booking-system-explore-booking.herokuapp.com/users/signup
 Content-Type: application/json
 
 {
